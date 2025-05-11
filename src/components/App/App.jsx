@@ -1,62 +1,53 @@
-import { useState, useEffect } from "react";
+//import { useState } from "react";//
 
-import Description from "../Description/Description";
-import css from "./App.module.css";
-import Options from "../Options/Options";
-import Feedback from "../Feedback/Feedback";
-import Notification from "../Notification/Notification";
+import ContactForm from "../ContactForm/ContactForm";
+import SearchBox from "../SearchBox/SearchBox";
+import ContactList from "../ContactList/ContactList";
+import { useState, useEffect } from "react";
+import İnitialData from "../data.json";
+import { nanoid } from "nanoid";
 
 export default function App() {
-  const info = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-
   const [data, setData] = useState(() => {
-    const savedData = window.localStorage.getItem("saved-data");
-    console.log(savedData);
+    const savedData = JSON.parse(window.localStorage.getItem("savedData"));
 
-    if (savedData !== null) {
-      return JSON.parse(savedData);
-    }
-
-    return info;
+    return savedData ? savedData : İnitialData;
   });
 
-  const updateFeedback = (feedbackType) => {
-    setData({
-      ...data,
-      [feedbackType]: data[feedbackType] + 1,
+  const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    window.localStorage.setItem("savedData", JSON.stringify(data));
+  }, [data]);
+
+  const addData = (values) => {
+    const newData = {
+      name: values.name,
+      number: values.number,
+      id: nanoid(),
+    };
+
+    setData((prevData) => {
+      return [...prevData, newData];
     });
   };
 
-  const resetFeedback = () => {
-    setData(info);
+  const deleteData = (dataİd) => {
+    setData((prevData) => {
+      return prevData.filter((data) => data.id !== dataİd);
+    });
   };
 
-  const totalFeedback = data.good + data.neutral + data.bad;
-
-  const positive = Math.round((data.good / totalFeedback) * 100);
-
-  useEffect(() => {
-    console.log(data);
-    window.localStorage.setItem("saved-data", JSON.stringify(data));
-  }, [data]);
+  const filteredData = data.filter((el) =>
+    el.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+  );
 
   return (
-    <div className={css.container}>
-      <Description />
-      <Options
-        value={data}
-        onBtnClick={updateFeedback}
-        resetFeedback={resetFeedback}
-      />
-      {data.good || data.neutral || data.bad !== 0 ? (
-        <Feedback value={data} total={totalFeedback} posAmount={positive} />
-      ) : (
-        <Notification />
-      )}
+    <div>
+      <h1>Phonebook</h1>
+      <ContactForm onAdd={addData} />
+      <SearchBox value={filter} onFilter={setFilter} />
+      <ContactList data={filteredData} onDelete={deleteData} />
     </div>
   );
 }
