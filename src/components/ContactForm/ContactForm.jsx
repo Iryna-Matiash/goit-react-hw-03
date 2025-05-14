@@ -1,54 +1,49 @@
-import css from "./ContactForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { nanoid } from "nanoid";
-import * as Yup from "yup";
-import "yup-phone";
 
-const phoneRegExp = /^(?:\+38)?0\d{9}$/;
+// src/components/ContactForm/ContactForm.jsx
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { nanoid } from 'nanoid';
+import * as Yup from 'yup';
+import styles from './ContactForm.module.css';
 
-const UserSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, "Must be min 3 chars")
-    .max(50, "Must be max 50 chars")
-    .required("This field is required"),
-  number: Yup.string()
-    .min(3, "Must be min 3 chars")
-    .max(50, "Must be max 50 chars")
-    .matches(phoneRegExp, "İnvalid phone number format")
-    .required("This field is required"),
-});
+const ContactForm = ({ onAdd }) => {
+  const initialValues = { name: '', number: '' };
 
-export default function ContactForm({ onAdd }) {
-  const handleSubmit = (values, actions) => {
-    console.log("handleSubmit", values);
-    onAdd(values);
-    actions.resetForm();
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .min(3, 'Must be min 3 chars')
+      .max(50, 'Must be max 50 chars')
+      .required('This field is required'),
+    number: Yup.string()
+      .min(3, 'Must be min 3 chars')
+      .max(50, 'Must be max 50 chars')
+      .required('This field is required'),
+  });
+
+  const handleSubmit = (values, { resetForm }) => {
+    const newContact = { id: nanoid(), ...values };
+    onAdd(newContact);
+    resetForm();
   };
+
   return (
-    <Formik
-      initialValues={{
-        name: "",
-        number: "",
-        id: nanoid(),
-      }}
-      onSubmit={handleSubmit}
-      validationSchema={UserSchema}
-    >
-      <Form className={css.form}>
-        <div className={css.group}>
-          <label className={css.label}>Name</label>
-          <Field className={css.input} type="text" name="name" />
-          <ErrorMessage className={css.error} name="name" component="span" />
-        </div>
-        <div className={css.group}>
-          <label className={css.label}>Number</label>
-          <Field className={css.input} type="tel" name="number" />
-          <ErrorMessage className={css.error} name="number" component="span" />
-        </div>
-        <button className={css.button} type="submit">
-          Add contact
-        </button>
+    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+      <Form className={styles.form}>
+        <label>
+          Name
+          <Field name="name" type="text" />
+          <ErrorMessage name="name" component="div" className={styles.error} />
+        </label>
+        <label>
+          Number
+          <Field name="number" type="text" />
+          <ErrorMessage name="number" component="div" className={styles.error} />
+        </label>
+        <button type="submit">Add Contact</button>
       </Form>
     </Formik>
   );
-}
+};
+
+export default ContactForm;
+

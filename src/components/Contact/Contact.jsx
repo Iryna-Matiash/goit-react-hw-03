@@ -1,22 +1,14 @@
-//import { number } from "yup";
-import { BsFillPersonFill, BsFillTelephoneFill } from "react-icons/bs";
-import css from "./Contact.module.css";
+// src/components/Contact/Contact.jsx
+import React from 'react';
+import styles from './Contact.module.css';
 
-export default function Contact({ contact: { name, number, id }, onDelete }) {
+const Contact = ({ contact, onDelete }) => {
   return (
-    <div className={css.container}>
-      <ul className={css.list}>
-        <li className={css.name}>
-          <BsFillPersonFill />
-          {name}
-        </li>
-        <li className={css.tel}>
-          <BsFillTelephoneFill /> {number}
-        </li>
-      </ul>
-      <button className={css.deleteBtn} onClick={() => onDelete(id)}>
-        Delete
-      </button>
-    </div>
+    <li className={styles.item}>
+      <span>{contact.name}: {contact.number}</span>
+      <button onClick={() => onDelete(contact.id)}>Delete</button>
+    </li>
   );
-}
+};
+
+export default Contact;
