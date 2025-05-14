@@ -1,4 +1,3 @@
-
 // src/components/ContactForm/ContactForm.jsx
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -31,19 +30,18 @@ const ContactForm = ({ onAdd }) => {
       <Form className={styles.form}>
         <label>
           Name
-          <Field name="name" type="text" />
+          <Field name="name" type="text" className={styles.input} />
           <ErrorMessage name="name" component="div" className={styles.error} />
         </label>
         <label>
           Number
-          <Field name="number" type="text" />
+          <Field name="number" type="text" className={styles.input} />
           <ErrorMessage name="number" component="div" className={styles.error} />
         </label>
-        <button type="submit">Add Contact</button>
+        <button type="submit" className={styles.button}>Add Contact</button>
       </Form>
     </Formik>
   );
 };
 
 export default ContactForm;
-

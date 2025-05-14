@@ -68,14 +68,14 @@ label {
   font-weight: bold;
 }
 
-input {
+.input {
   padding: 6px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-button {
+.button {
   padding: 8px;
   font-size: 14px;
   border: 1px solid #666;
@@ -84,7 +84,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #eee;
 }
 
