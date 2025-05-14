@@ -1,61 +1,6 @@
-/* .item {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  border: 1px solid #000;
-  border-radius: 6px;
-  padding: 12px;
-  width: 200px;
-  background: linear-gradient(to bottom, #fff, #eee);
-  font-family: sans-serif;
-}
-
-.contactRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.name,
-.number {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.deleteButton {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 4px 8px;
-  font-size: 13px;
-  border: 1px solid #888;
-  border-radius: 4px;
-  background-color: #ddd;
-  cursor: pointer;
-}
-
-.deleteButton:hover {
-  background-color: #ccc;
-} */
-
-
- /* display: flex;
- flex-direction: column;
- justify-content: space-between;
- position: relative;
- border: 1px solid #000;
- border-radius: 6px;
- padding: 12px;
- width: 200px;
- background: linear-gradient(to bottom, #fff, #eee);
- font-family: sans-serif; */
 
 .item {
-  border: 1px solid #999;
+  border: 1px solid #000;
   border-radius: 8px;
   padding: 12px;
   width: 250px;

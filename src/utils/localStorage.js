@@ -1,4 +1,4 @@
-// src/utils/localStorage.js
+
 const STORAGE_KEY = 'contacts';
 
 export const loadContacts = () => {
